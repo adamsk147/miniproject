@@ -48,9 +48,10 @@ const index = () => {
        <Head>
         <title>Home Page</title>
     </Head> 
+    
     <div className={styles.container}><Navbar />
       <div className={styles.title}>
-      <marquee bgcolor="#0000FF" direction="lefe" scrollamount="5" width="100%"><ins>Welcome to Project mini</ins></marquee></div>
+      <marquee bgcolor="# 00FFFF" direction="lefe" scrollamount="5" width="100%"><ins> Welcome to the system to record the checkpoint setting. </ins></marquee></div>
       <div className={styles.list}>
         {showStudents()}
       </div>

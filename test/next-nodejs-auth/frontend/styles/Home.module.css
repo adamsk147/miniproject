@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: antiquewhite;
+    background-image: url(../img/homepage.jpg);
 }
 
 .content {
@@ -37,7 +37,7 @@
     color: aliceblue;
 }
 .btulogin {
-    background-color:blue;
+    background-color:rgb(198, 198, 211);
     color: aliceblue;
 }
 .bturegister {
