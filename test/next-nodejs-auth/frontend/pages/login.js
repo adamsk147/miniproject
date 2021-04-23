@@ -72,7 +72,7 @@ export default function Login({ token }) {
       </Head>
       <div className={styles.container}>
         <Navbar />
-        <h1>Login</h1>
+        <h1>ยินดีต้องรับการเข้าสู้ระบบ</h1>
         <div>
           <b>Token:</b> {token.substring(0, 15)}...
           <button className={styles.btn1} onClick={copyText}> Copy token </button>

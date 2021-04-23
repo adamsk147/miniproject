@@ -6,6 +6,8 @@
     justify-content: center;
     align-items: center;
     background-image: url(../img/homepage.jpg);
+    font-size: 30px;
+    color: rgb(235, 230, 230);
 }
 
 .content {
@@ -90,7 +92,7 @@
   }
   
   .btn1 {
-      background-color: brown;
+      background-color: rgb(70, 37, 37);
       color: whitesmoke;
       font-size: 1rem;
       margin-top: 10px;
@@ -107,7 +109,7 @@
     background-color: rgb(34, 183, 233);
     border-radius: 10%;
     border: none;
-    color: white;
+    color: rgb(88, 61, 61);
     padding: 8px 8px;
     text-align: center;
     text-decoration: none;
