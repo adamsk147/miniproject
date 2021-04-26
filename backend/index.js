@@ -6,11 +6,45 @@ const express = require("express"),
   cookie = require("cookie");
 const bcrypt = require("bcrypt");
 const { db, SECRET, checkExistingUser, NOT_FOUND } = require("./database.js");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 
 require("./passport.js");
 
 const router = require("express").Router(),
   jwt = require("jsonwebtoken");
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      Date.now() + "_" + file.originalname.split(" ").join().replace(",", "_")
+    );
+  },
+});
+
+checkFileType = (file, cb) => {
+  const filetypes = /jpeg|jpg|png/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb("images only");
+  }
+};
+
+let uploader = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    checkFileType(file, cb);
+  },
+}).single("img");
 
 router.use(cors({ origin: "http://localhost:3000", credentials: true }));
 router.use(express.json());
@@ -61,15 +95,6 @@ router.get("/logout", (req, res) => {
   return res.json({ message: "Logout successful" });
 });
 
-/* GET user profile. */
-router.get(
-  "/profile",
-  passport.authenticate("jwt", { session: false }),
-  (req, res, next) => {
-    res.send(req.user);
-  }
-);
-
 router.post("/register", async (req, res) => {
   try {
     const SALT_ROUND = 10;
@@ -89,22 +114,19 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.route("/passport/:passport").get((req, res) => {
-  let id = db.users.findIndex((item) => +item.id == +req.params.passport);
-  res.json(db.users[id]);
-});
-
-router.route("/pay/:passport/:plaintId").put((req, res) => {
-  let id = db.users.findIndex((item) => +item.passport == +req.params.passport);
-  db.users[id].plaints = db.users[id].plaints.map((item) => {
-    if (+item.id == +req.params.plaintId) {
-      item.status = true;
-    }
-    return item;
+router.get(
+  "/profile",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    res.send(req.user);
+  }
+);
+//แอดมิน
+router
+  .route("/users", passport.authenticate("jwt", { session: false }))
+  .get((req, res) => {
+    res.json(db.users);
   });
-
-  res.json(db.users[id]);
-});
 
 router
   .route("/user", passport.authenticate("jwt", { session: false }))
@@ -130,7 +152,6 @@ router
       });
       return res.json(db.users);
     } else {
-      console.log("asd");
       let plaintId = db.users[id].plaints[db.users[id].plaints.length - 1].id;
       let plaintList = plaints.map((item, id) => {
         return { id: plaintId + 1, ...item };
@@ -141,18 +162,35 @@ router
   });
 
 router
-  .route("/users", passport.authenticate("jwt", { session: false }))
+  .route("/user/:userId", passport.authenticate("jwt", { session: false }))
   .get((req, res) => {
+    let id = db.users.findIndex((item) => item.id == +req.params.id);
+    res.json(db.users[id]);
+  })
+  .put((req, res) => {
+    const { fullName, address, plaints, passport } = req.body;
+    let id = db.users.findIndex((item) => item.id == +req.params.id);
+    if (id == -1) {
+      return res.json({ text: "not found" });
+    }
+    db.users[id].fullName = fullName;
+    db.users[id].address = address;
+    db.users[id].plaints = plaints;
+    db.users[id].passport = passport;
+    res.json(db.users[id]);
+  })
+  .delete((req, res) => {
+    db.users = db.users.filter((item) => +item.id !== +req.params.id);
     res.json(db.users);
   });
 
 router
   .route(
-    "/passport/:passport/:plaintId",
+    "/user/:passport/:plaintId",
     passport.authenticate("jwt", { session: false })
   )
   .put((req, res) => {
-    const { title, price, status } = req.body;
+    const { title, price, status, vehicle } = req.body;
     let id = db.users.findIndex(
       (item) => +item.passport == +req.params.passport
     );
@@ -163,6 +201,8 @@ router
     db.users[id].plaints[index].title = title;
     db.users[id].plaints[index].price = price;
     db.users[id].plaints[index].status = status;
+    db.users[id].plaints[index].img = img;
+    db.users[id].plaints[index].vehicle = vehicle;
     res.json(db.users[id]);
   })
 
@@ -175,6 +215,42 @@ router
     );
     res.json(db.users[id]);
   });
+
+//ดึงข้อมูลuser
+router.route("/getuser/:passport").get((req, res) => {
+  let id = db.users.findIndex((item) => +item.passport == +req.params.passport);
+  if (id == -1) {
+    return res.json({ text: "not found" });
+  }
+  res.json(db.users[id]);
+});
+//user จ่ายตัง
+router.route("/pay/:passport/:plaintId").put((req, res) => {
+  uploader(req, res, (err) => {
+    if (err) res.json({ text: err });
+    else {
+      if (req.file == undefined) {
+        res.json({ text: "ไม่พบไฟล์" });
+      } else {
+        let id = db.users.findIndex(
+          (item) => +item.passport == +req.params.passport
+        );
+        db.users[id].plaints = db.users[id].plaints.map((item) => {
+          if (+item.id == +req.params.plaintId) {
+            item.status = true;
+            item.img = req.file.filename;
+          }
+          return item;
+        });
+        res.json(db.users[id]);
+      }
+    }
+  });
+});
+
+router.route("/upload/:path").get((req, res) => {
+  return res.sendFile(req.params.path, { root: "uploads/" });
+});
 
 app.use("/api", router);
 
