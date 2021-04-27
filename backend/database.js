@@ -10,11 +10,11 @@ let db = {
       plaints: [
         {
           id: 1,
-          title: "a",
+          title: "มึนเมา",
           price: 100,
           status: false,
           img: "",
-          vehicle: "จักยายนต์ กดจ 123",
+          vehicle: "จักยายนต์ กดจ 654",
         },
         {
           id: 2,

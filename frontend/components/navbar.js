@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, Row, Col } from "antd";
 import { useRouter } from "next/router";
 const { Header, Content, Sider } = Layout;
 const Navbar = () => {
@@ -14,11 +14,11 @@ const Navbar = () => {
     }
   }, []);
   return (
-    <div>
-      <div>{user.fullName}</div>
-      <div>{user.address}</div>
-      <div>{user.passport}</div>
-    </div>
+    <Row>
+      <Col span={8}>ชื่อ : {user.fullName}</Col>
+      <Col span={8}>ที่อยู่ : {user.address}</Col>
+      <Col span={8}>เลขบัตร : {user.passport}</Col>
+    </Row>
   );
 };
 

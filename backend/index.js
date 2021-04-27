@@ -44,7 +44,7 @@ let uploader = multer({
   fileFilter: (req, file, cb) => {
     checkFileType(file, cb);
   },
-}).single("img");
+}).single("file");
 
 router.use(cors({ origin: "http://localhost:3000", credentials: true }));
 router.use(express.json());

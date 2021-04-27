@@ -6,6 +6,7 @@ import { Button, Form, Input } from "antd";
 import { useRouter } from "next/router";
 import { message } from "antd";
 import { Menu, Breadcrumb } from "antd";
+import styles from "../styles/Home.module.css";
 const index = () => {
   const router = useRouter();
   const onFinish = async (values) => {
@@ -16,7 +17,7 @@ const index = () => {
       message.error("ไม่พบข้อมูล");
     } else {
       sessionStorage.setItem("user", JSON.stringify(res.data));
-      router.push("/detail");
+      router.push("/list");
     }
   };
   return (
@@ -27,14 +28,16 @@ const index = () => {
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
         <Menu.Item key="1">admin</Menu.Item>
       </Menu>
-      <Form onFinish={onFinish}>
-        <Form.Item name="passport">
-          <Input placeholder="เลขบัตร" />
-        </Form.Item>
-        <Button type="primary" htmlType="submit">
-          ค้นหา
-        </Button>
-      </Form>
+      <div>
+        <Form onFinish={onFinish}>
+          <Form.Item name="passport">
+            <Input placeholder="เลขบัตร" />
+          </Form.Item>
+          <Button type="primary" htmlType="submit">
+            ค้นหา
+          </Button>
+        </Form>
+      </div>
     </Layout>
   );
 };
