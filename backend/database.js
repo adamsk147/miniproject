@@ -26,6 +26,30 @@ let db = {
         },
       ],
     },
+    {
+      id: 2,
+      passport: "1234567891233",
+      fullName: "aaaa ssss",
+      address: "Phuket",
+      plaints: [
+        {
+          id: 1,
+          title: "มึนเมา",
+          price: 100,
+          status: false,
+          img: "",
+          vehicle: "จักยายนต์ กดจ 654",
+        },
+        {
+          id: 2,
+          title: "a",
+          price: 100,
+          status: false,
+          img: "",
+          vehicle: "จักยายนต์ กดจ 123",
+        },
+      ],
+    },
   ],
   admins: [
     {

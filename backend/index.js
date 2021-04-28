@@ -131,38 +131,28 @@ router
 router
   .route("/user", passport.authenticate("jwt", { session: false }))
   .post((req, res) => {
-    const { plaints, fullname, passport, address } = req.body;
+    const { fullName, passport, address } = req.body;
     console.log(req.body);
     let id = db.users.findIndex((item) => item.passport == passport);
     console.log(id);
-    if (id == -1 && !address && !fullname) {
+    if (id == -1 && !address && !fullName) {
       return res.json({ text: "ผู้ต้องหาใหม่" });
     }
     if (id == -1) {
       let userId = db.users.length ? db.users[db.users.length - 1].id + 1 : 1;
-      let plaintList = plaints.map((item, id) => {
-        return { id: id + 1, ...item };
-      });
       db.users.push({
         id: userId,
-        fullname,
+        fullName,
         passport,
         address,
-        plaints: plaintList,
+        plaints: [],
       });
       return res.json(db.users);
-    } else {
-      let plaintId = db.users[id].plaints[db.users[id].plaints.length - 1].id;
-      let plaintList = plaints.map((item, id) => {
-        return { id: plaintId + 1, ...item };
-      });
-      db.users[id].plaints.push(...plaintList);
-      return res.json(db.users[id]);
     }
   });
 
 router
-  .route("/user/:userId", passport.authenticate("jwt", { session: false }))
+  .route("/user/:id", passport.authenticate("jwt", { session: false }))
   .get((req, res) => {
     let id = db.users.findIndex((item) => item.id == +req.params.id);
     res.json(db.users[id]);
@@ -175,8 +165,25 @@ router
     }
     db.users[id].fullName = fullName;
     db.users[id].address = address;
-    db.users[id].plaints = plaints;
+    db.users[id].plaints = [];
     db.users[id].passport = passport;
+    res.json(db.users[id]);
+  })
+  .post((req, res) => {
+    const { title, price, vehicle } = req.body;
+    let id = db.users.findIndex((item) => item.id == +req.params.id);
+    if (id == -1) {
+      return res.json({ text: "not found" });
+    }
+    let plaintId = db.users[id].plaints.length ? db.users[id].plaints[db.users[id].plaints.length - 1].id + 1 : 1;
+    db.users[id].plaints.push({
+      id : plaintId,
+      title,
+      price,
+      vehicle,
+      img: "",
+      status: false,
+    });
     res.json(db.users[id]);
   })
   .delete((req, res) => {
@@ -201,7 +208,7 @@ router
     db.users[id].plaints[index].title = title;
     db.users[id].plaints[index].price = price;
     db.users[id].plaints[index].status = status;
-    db.users[id].plaints[index].img = img;
+    db.users[id].plaints[index].img = "";
     db.users[id].plaints[index].vehicle = vehicle;
     res.json(db.users[id]);
   })

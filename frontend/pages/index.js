@@ -26,7 +26,7 @@ const index = () => {
         <title>Home Page</title>
       </Head>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-        <Menu.Item key="1">admin</Menu.Item>
+        <Menu.Item key="1" onClick={()=>{router.push('/admin')}}>admin</Menu.Item>
       </Menu>
       <div>
         <Form onFinish={onFinish}>
