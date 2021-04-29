@@ -135,9 +135,6 @@ router
     console.log(req.body);
     let id = db.users.findIndex((item) => item.passport == passport);
     console.log(id);
-    if (id == -1 && !address && !fullName) {
-      return res.json({ text: "ผู้ต้องหาใหม่" });
-    }
     if (id == -1) {
       let userId = db.users.length ? db.users[db.users.length - 1].id + 1 : 1;
       db.users.push({

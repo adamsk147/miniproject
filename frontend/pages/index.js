@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { message } from "antd";
 import { Menu, Breadcrumb } from "antd";
 import styles from "../styles/Home.module.css";
+
 const index = () => {
   const router = useRouter();
   const onFinish = async (values) => {
@@ -21,14 +22,23 @@ const index = () => {
     }
   };
   return (
-    <Layout>
-      <Head>
-        <title>Home Page</title>
-      </Head>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-        <Menu.Item key="1" onClick={()=>{router.push('/admin')}}>admin</Menu.Item>
-      </Menu>
-      <div>
+    <div className={styles.bk}>
+      <Layout>
+        <Head>
+          <title>Home Page</title>
+        </Head>
+
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <Menu.Item
+            key="1"
+            onClick={() => {
+              router.push("/admin");
+            }}
+          >
+            admin
+          </Menu.Item>
+        </Menu>
+
         <Form onFinish={onFinish}>
           <Form.Item name="passport">
             <Input placeholder="เลขบัตร" />
@@ -37,8 +47,8 @@ const index = () => {
             ค้นหา
           </Button>
         </Form>
-      </div>
-    </Layout>
+      </Layout>
+    </div>
   );
 };
 export default index;

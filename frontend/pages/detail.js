@@ -75,18 +75,26 @@ const Detail = () => {
             height="50"
           />
         ) : (
-          <Form onFinish={onFinish}>
-            <Form.Item name="file">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => onChange(event.target.files[0] || null)}
-              />
-            </Form.Item>
-            <Button type="primary" htmlType="submit">
-              ส่งสลิป
-            </Button>
-          </Form>
+          <div>
+            <Form onFinish={onFinish}>
+              <Form.Item name="file">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => onChange(event.target.files[0] || null)}
+                />
+              </Form.Item>
+              <Button type="primary" htmlType="submit">
+                ส่งสลิป
+              </Button>
+            </Form>
+            <img
+              src="/qr.jpg"
+              alt="Girl in a jacket"
+              width="500"
+              height="600"
+            />
+          </div>
         )}
       </div>
     </Layout>

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/navbar";
 import { useEffect, useState } from "react";
 import { Row, Col, Table, Tag, Space, Button } from "antd";
+
 import { useRouter } from "next/router";
 const Detail = () => {
   const router = useRouter();
@@ -69,8 +70,12 @@ const Detail = () => {
       <Head>
         <title>List Page</title>
       </Head>
+
+      <div >
       <Navbar />
       <Table columns={columns} dataSource={user.plaints} pagination={false} />
+
+      </div>
     </Layout>
   );
 };

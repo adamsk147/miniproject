@@ -29,6 +29,9 @@ export default function Login({ token }) {
   const reMem = async () => {
     setRemember(!remember);
   };
+  const register = () =>{
+    router.push('/admin/register')
+  }
 
   const loginForm = () => (
     <div className={styles.gridContainer}>
@@ -84,14 +87,10 @@ export default function Login({ token }) {
         <title>Login Page</title>
       </Head>
       <div className={styles.container}>
-        <h1>ยินดีต้องรับการเข้าสู้ระบบ</h1>
-        <div>
-          <b>Token:</b> {token.substring(0, 15)}...
-          <button className={styles.btn1} onClick={copyText}>
-            {" "}
-            Copy token{" "}
-          </button>
-        </div>
+        
+        <h1 className ={styles.text}>ยินดีต้องรับการเข้าสู้ระบบ</h1>
+   
+        
         <br />
         <br />
         {loginForm()}
@@ -100,7 +99,11 @@ export default function Login({ token }) {
             Login
           </button>
         </div>
+        <button className={styles.btn2} onClick={register}>
+            register
+          </button>
       </div>
+      
     </Layout>
   );
 }
