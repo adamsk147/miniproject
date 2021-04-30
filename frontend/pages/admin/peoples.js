@@ -6,6 +6,7 @@ import { Row, Form, Table, Input, Modal, Button } from "antd";
 import { useRouter } from "next/router";
 import axios from "axios";
 import config from "../../config/config";
+import styles from "../../styles/Home.module.css";
 const Peoples = () => {
   const router = useRouter();
   const [form] = Form.useForm();
@@ -60,7 +61,7 @@ const Peoples = () => {
 
   const columns = [
     {
-      title: "ไอดี",
+      title: "Number",
       dataIndex: "id",
       key: "id",
     },
@@ -93,7 +94,7 @@ const Peoples = () => {
           <Button type="primary" onClick={() => deleteUser(data)}>
             ลบ
           </Button>
-          <Button
+          &ensp;  <Button
             type="primary"
             onClick={() => {
               setUser(data);
@@ -122,9 +123,9 @@ const Peoples = () => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    form.resetFields()
-    setUser({id : 0})
-};
+    form.resetFields();
+    setUser({ id: 0 });
+  };
   const onFinish = async (values) => {
     values.plaints = [];
     if (user.id != 0) {
@@ -152,42 +153,48 @@ const Peoples = () => {
     handleCancel();
   };
 
-  const logout =  () => {
-    sessionStorage.clear()
-    router.push('/')
-}
+  const logout = () => {
+    sessionStorage.clear();
+    router.push("/");
+  };
   return (
-    <Layout>
-      <Head>
-        <title>List Page</title>
-      </Head>
-      <Button type="primary" onClick={() => showModal()}>
-        ADD
-      </Button>
-      <Button onClick={logout}>Logout</Button>
-      <Table columns={columns} dataSource={users} pagination={false} />
-      <Modal
-        title="User"
-        visible={isModalVisible}
-        footer={false}
-        onCancel={handleCancel}
-      >
-        <Form id="form" form={form} onFinish={onFinish}>
-          <Form.Item name="passport">
-            <Input placeholder="เลข" />
-          </Form.Item>
-          <Form.Item name="fullName">
-            <Input placeholder="ชื่อ" />
-          </Form.Item>
-          <Form.Item name="address">
-            <Input placeholder="ที่อยู่" />
-          </Form.Item>
-          <Button htmlType="submit" type="primary">
-            SAVE
-          </Button>
-        </Form>
-      </Modal>
-    </Layout>
+    <div className className={styles.bk3}>
+      <Layout>
+        <Head>
+          <title>List Page</title>
+        </Head>
+        <Button type="primary" onClick={() => showModal()}>
+          ADD
+        </Button>
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+        &ensp;&ensp;&ensp;&ensp;&ensp;
+        <Button onClick={logout}>Logout</Button>
+        <Table columns={columns} dataSource={users} pagination={false} />
+        <Modal
+          title="User"
+          visible={isModalVisible}
+          footer={false}
+          onCancel={handleCancel}
+        >
+          <Form id="form" form={form} onFinish={onFinish}>
+            <Form.Item name="passport">
+              <Input placeholder="หมายเลขบัตรประชาชน" />
+            </Form.Item>
+            <Form.Item name="fullName">
+              <Input placeholder="ชื่อ-นามสกุล" />
+            </Form.Item>
+            <Form.Item name="address">
+              <Input placeholder="ที่อยู่ตามสำเนา" />
+            </Form.Item>
+            <Button htmlType="submit" type="primary">
+              SAVE
+            </Button>
+          </Form>
+        </Modal>
+      </Layout>
+    </div>
   );
 };
 export default Peoples;

@@ -5,8 +5,8 @@ let db = {
     {
       id: 1,
       passport: "1234567891234",
-      fullName: "test test",
-      address: "Phuket",
+      fullName: "ชื่อ-นามสกุล",
+      address: "ที่อยู่",
       plaints: [
         {
           id: 1,

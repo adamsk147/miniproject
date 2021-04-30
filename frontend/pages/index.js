@@ -38,7 +38,16 @@ const index = () => {
             admin
           </Menu.Item>
         </Menu>
-
+        <div className={styles.title}>
+          <marquee
+            bgcolor="# 00FFFF"
+            direction="lefe"
+            scrollamount="2"
+            width="100%"
+          >
+            <ins> ยินดีต้อนรับเข้าสู้ระบบตรวจสอบการกระทำผิดกฎจราจร &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;      Welcome to the immoral inspection system</ins>
+          </marquee>
+        </div > 
         <Form onFinish={onFinish}>
           <Form.Item name="passport">
             <Input placeholder="เลขบัตร" />
@@ -48,6 +57,7 @@ const index = () => {
           </Button>
         </Form>
       </Layout>
+      <div>///</div>
     </div>
   );
 };

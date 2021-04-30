@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/navbar";
 import { useEffect, useState } from "react";
 import { Row, Col, Table, Tag, Space, Button } from "antd";
+import styles from "../styles/Home.module.css";
 
 import { useRouter } from "next/router";
 const Detail = () => {
@@ -31,7 +32,7 @@ const Detail = () => {
 
   const columns = [
     {
-      title: "ไอดี",
+      title: "Number",
       dataIndex: "id",
       key: "id",
     },
@@ -54,7 +55,7 @@ const Detail = () => {
       title: "status",
       dataIndex: "status",
       key: "status",
-      render: (status) => <div>{status ? "จ่ายแล้ว" : "ไม่จ่ายตัง"}</div>,
+      render: (status) => <div>{status ? "จ่ายค่าปรับแล้ว" : "ยังไม่ได้ชำระค่าปรับ"}</div>,
     },
     {
       title: "Ation",
@@ -65,7 +66,7 @@ const Detail = () => {
       ),
     },
   ];
-  return (
+  return ( <div className className={styles.bk2}>
     <Layout>
       <Head>
         <title>List Page</title>
@@ -77,6 +78,7 @@ const Detail = () => {
 
       </div>
     </Layout>
+    </div>
   );
 };
 export default Detail;

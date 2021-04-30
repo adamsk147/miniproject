@@ -144,5 +144,49 @@
   height: 100vh;
 
 }
+.bk1 {
+  
+  background-image: url(../img/slip.jpg );
+  height: 100vh;
+  
+  font-size: 20px;
+  color: rgb(173, 8, 22);
+  background-color: rgb(70, 37, 37);
+ 
+  font-size: 1rem;
+  margin-top: 10px;
+  border: 2px solid rgb(76, 41, 172);
+  
+
+}
+
+.bk2 {
+  
+  background-image: url(../img/backgroud.jpg );
+  height: 100vh;
+  
+  font-size: 20px;
+  color: rgb(173, 8, 22);
+  background-color: rgb(70, 37, 37);
+ 
+  font-size: 1rem;
+  margin-top: 10px;
+  border: 2px solid rgb(76, 41, 172);
+  
+
+}
+
+
+.bk3 {
+  
+  background-image: url(../img/slip.jpg );
+  height: 100vh;
+  
+  
+  
+
+}
+
+
 
 

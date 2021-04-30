@@ -8,6 +8,8 @@ import { message } from "antd";
 import { Menu, Breadcrumb } from "antd";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
+import styles from "../../styles/Home.module.css";
+
 const Detail = () => {
   const router = useRouter();
   const [user, setUser] = useState({
@@ -18,7 +20,7 @@ const Detail = () => {
     plaints: [],
   });
   const [file, setFile] = useState({});
-  const [ข้อหา, กำหนดข้อหา] = useState({
+  const [Faultbase, กำหนดข้อหา] = useState({
     id: 0,
     img: "",
     price: 100,
@@ -44,7 +46,7 @@ const Detail = () => {
     var bodyFormData = new FormData();
     bodyFormData.append("file", file);
     const res = await axios.put(
-      "http://localhost/api/pay/" + user.passport + "/" + ข้อหา.id,
+      "http://localhost/api/pay/" + user.passport + "/" + Faultbase.id,
       bodyFormData
     );
 
@@ -57,48 +59,59 @@ const Detail = () => {
   };
 
   return (
-    <Layout>
-      <Head>
-        <title>Detail Page</title>
-      </Head>
-      <Navbar />
-      <div>
-        {ข้อหา.id}
-        {ข้อหา.title}
-        {ข้อหา.vehicle}
-        {ข้อหา.price}
-        {ข้อหา.status ? "จ่ายแล้ว" : "ไม่จ่ายตัง"}
-        {ข้อหา.status ? (
-          <img
-            src={"http://localhost/api/upload/" + ข้อหา.img}
-            width="50"
-            height="50"
-          />
-        ) : (
-         
-          <div>
-            <Form onFinish={onFinish}>
-              <Form.Item name="file">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(event) => onChange(event.target.files[0] || null)}
-                />
-              </Form.Item>
-              <Button type="primary" htmlType="submit">
-                ส่งสลิป
-              </Button>
-            </Form>
+    <div className className={styles.bk1}>
+      <Layout>
+        <Head>
+          <title>Detail Page</title>
+        </Head>
+        <Navbar />
+        <div align="center"className={styles.bk1} >
+          <br></br>
+          
+          <h3>
+            คดีที่: {Faultbase.id}&ensp; ข้อหา: {Faultbase.title}&ensp;<br></br>
+            ป้ายทะเบียงรถ: {Faultbase.vehicle}
+            {Faultbase.price}&ensp;&ensp;
+            <br></br>
+            <br></br>
+            {Faultbase.status
+              ? "ชำระค่าปรับเรียบร้อยแล้ว"
+              : "ยังไม่ได้ชำระค่าปรับ"}
+          </h3>
+
+          {Faultbase.status ? (
             <img
-              src="/qr.jpg"
-              alt="Girl in a jacket"
-              width="500"
-              height="600"
+              src={"http://localhost/api/upload/" + Faultbase.img}
+              width="300"
+              height="250"
             />
-          </div>
-        )}
-      </div>
-    </Layout>
+          ) : (
+            <div>
+              <Form onFinish={onFinish}>
+                <Form.Item name="file">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(event) =>
+                      onChange(event.target.files[0] || null)
+                    }
+                  />
+                </Form.Item>
+                <Button type="primary" htmlType="submit">
+                  ส่งสลิป
+                </Button>
+              </Form>
+              <img
+                src="/qr.jpg"
+                alt="Girl in a jacket"
+                width="300"
+                height="250"
+              />
+            </div>
+          )}
+        </div>
+      </Layout>
+    </div>
   );
 };
 

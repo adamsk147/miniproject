@@ -86,22 +86,31 @@ export default function Login({ token }) {
       <Head>
         <title>Login Page</title>
       </Head>
+      <div className={styles.title}>
+          <marquee
+            bgcolor="# 00FFFF"
+            direction="lefe"
+            scrollamount="4"
+            width="100%"
+          >
+            <ins> ยินดีต้อนรับเข้าสู้ระบบตรวจสอบการกระทำผิดกฎจราจร &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;      Welcome to the immoral inspection system</ins>
+          </marquee>
+        </div>
       <div className={styles.container}>
         
         <h1 className ={styles.text}>ยินดีต้องรับการเข้าสู้ระบบ</h1>
-   
+       
         
-        <br />
-        <br />
         {loginForm()}
         <div>
           <button className={styles.btn2} onClick={login}>
             Login
           </button>
-        </div>
-        <button className={styles.btn2} onClick={register}>
+          <button className={styles.btn2} onClick={register}>
             register
           </button>
+        </div>
+        
       </div>
       
     </Layout>

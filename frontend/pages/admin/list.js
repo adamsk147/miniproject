@@ -6,6 +6,7 @@ import { Row, Modal, Form, Table, Input, Button } from "antd";
 import { useRouter } from "next/router";
 import axios from "axios";
 import config from "../../config/config";
+import styles from "../../styles/Home.module.css";
 const Detail = () => {
   const router = useRouter();
   const [form] = Form.useForm();
@@ -81,7 +82,7 @@ const Detail = () => {
 
   const columns = [
     {
-      title: "ไอดี",
+      title: "Number",
       dataIndex: "id",
       key: "id",
     },
@@ -113,10 +114,10 @@ const Detail = () => {
           <Button type="primary" onClick={() => go(data)}>
             รายละเอียด
           </Button>
-          <Button type="primary" onClick={() => deletePlaint(data)}>
+          &ensp; <Button type="primary" onClick={() => deletePlaint(data)}>
             ลบ
           </Button>
-          <Button
+          &ensp;  <Button
             type="primary"
             onClick={() => {
               setplaint(data);
@@ -153,6 +154,7 @@ const Detail = () => {
     sessionStorage.setItem("user", JSON.stringify(res.data));
   };
   return (
+    <div className className={styles.bk2}>
     <Layout>
       <Head>
         <title>List Page</title>
@@ -173,17 +175,18 @@ const Detail = () => {
             <Input placeholder="ข้อหา" />
           </Form.Item>
           <Form.Item name="price">
-            <Input placeholder="ราคา" />
+            <Input placeholder="ค่าปรับ" />
           </Form.Item>
           <Form.Item name="vehicle">
-            <Input placeholder="ป้าย" />
+            <Input placeholder="รายละเอียดยานพาหนะ" />
           </Form.Item>
           <Button htmlType="submit" type="primary">
-            SAVE
+            บันทึก
           </Button>
         </Form>
       </Modal>
     </Layout>
+    </div>
   );
 };
 export default Detail;
